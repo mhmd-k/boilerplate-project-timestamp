@@ -1,6 +1,11 @@
 // index.js
 // where your node app starts
 
+function isInvalidDate(dateStr) {
+  const date = new Date(dateStr);
+  return isNaN(date);
+}
+
 // init project
 const express = require("express");
 const app = express();
@@ -41,6 +46,8 @@ app.get("/api/:timestamp", (req, res) => {
       unix: Number(timestamp),
     });
   } else {
+    if (isInvalidDate(timestamp)) res.json({ error: "Invalid Date" });
+
     console.log(response);
 
     res.json({
