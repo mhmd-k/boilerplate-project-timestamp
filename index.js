@@ -36,6 +36,12 @@ const listener = app.listen(process.env.PORT || 3000, function () {
 app.get("/api/:timestamp", (req, res) => {
   const timestamp = req.params.timestamp;
 
+  if (!timestamp)
+    res.json({
+      utc: new Date().toUTCString(),
+      unix: new Date().getTime(),
+    });
+
   let response;
 
   if (Number(timestamp)) {
